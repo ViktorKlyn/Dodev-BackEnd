@@ -1,0 +1,14 @@
+Concessionária - Manipulação
+
+Desafio: Utilize os comandos de UPDATE, SELECT e JOIN, para modificar o valor da Venda com id = 1 na tabela "vendas".
+Além disso, você deve obter as informações atualizadas sobre essa Venda, incluindo o nome do cliente e os detalhes do carro vendido.
+
+UPDATE vendas 
+SET valor = 45000.00
+WHERE id = 1;
+
+SELECTS c.nomes AS nome_cliente, ca.marca, ca.modelo, v.valor
+FROM vendas v
+JOIN carros ca ON v.carro_id = ca.id
+JOIN clientes c ON v.cliente_id = c.id
+WHERE v.id = 1;

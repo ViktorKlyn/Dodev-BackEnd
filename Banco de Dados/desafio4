@@ -1,0 +1,11 @@
+Concessionária - ALTER TABLE/DELETE
+
+Desafio: Modifique as tabelas criadas no exercício anterior, utilize os comandos ALTER TABLE e DROP TABLE
+para renomear uma coluna e excluir uma tabela
+
+ALTER TABLE carros
+RENAME COLUMN cor TO cor_exterior;
+
+DROP TABLE clientes;
+
+// As alterações podem ser feitas em qualquer tabela/dado

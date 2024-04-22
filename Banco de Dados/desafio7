@@ -1,0 +1,118 @@
+Ecommerce - Modelagem
+
+Desafio: Crie as tabelas "Produtos", "Vendas" e "Clientes" no https://dbdiagram.io/d com a seguinte estrutura:
+
+Tabela "Produtos":
+
+ID (PK) - Chave primária, identificador único do produto
+Nome - Nome do produto
+Preco - Preço do produto
+Categoria - Categoria do produto
+
+Tabela "Vendas":
+
+ID (PK) - Chave primária, identificador único da venda
+ClienteID (FK) - Chave estrangeira referenciando a tabela "Clientes"
+ProdutoID (FK) - Chave estrangeira referenciando a tabela "Produtos"
+Quantidade - Quantidade de produtos vendidos
+Data - Data da venda
+
+Tabela "Clientes":
+
+ID (PK) - Chave primária, identificador único do cliente
+Nome - Nome do cliente
+Email - Endereço de e-mail do cliente
+
+
+
+Ecommerce - Criação
+
+Crie as tabelas no banco de dados, certificando-se de que as tabelas mantenham o mesmo relacionamento definido na modelagem do dbDiagram.
+
+Insira alguns dados fíctícios nas tabelas para simular as consultas posteriormente
+
+
+
+Ecommerce - Consulta
+
+Elabore uma consulta SQL que retorna a contagem de produtos de cada categoria na tabela de produtos. Exiba essa contagem de forma crescente.
+
+
+Elabore uma consulta SQL que retorna a contagem de produtos iguais vendidos na tabela de vendas. Exiba essa contagem de forma decrescente 
+
+Elabore uma consulta SQL que retorna o nome do cliente, o nome do produto e a quantidade total vendida em todas as vendas realizadas. Certifique-se de utilizar corretamente as chaves primárias (PK) e estrangeiras (FK) correspondentes para unir as tabelas "Vendas", "Clientes" e "Produtos"
+
+
+-- RESOLUÇÕES: --
+
+
+// MODELAGEM
+Table Produtos {
+    ID INT [pk]
+    Nome VARCHAR
+    Preco DECIMAL
+    Categoria VARCHAR
+}
+
+Table Vendas {
+    ID INT [pk]
+    ClienteID INT [ref: > Clientes.ID]
+    ProdutoID INT [ref: > Produtos.ID]
+    Quantidade INT
+    Data DATE
+}
+
+Table Clientes {
+    ID INT [pk]
+    Nome VARCHAR
+    Email VARCHAR
+}
+
+
+// CRIAÇÃO
+CREATE TABLE Produtos (
+    ID SERIAL PRIMARY KEY,
+    Nome VARCHAR,
+    Preco DECIMAL,
+    Categoria VARCHAR
+);
+
+CREATE TABLE Clientes (
+    ID SERIAL PRIMARY KEY,
+    Nome VARCHAR,
+    Email VARCHAR
+)
+
+CREATE TABLE Vendas (
+    ID SERIAL PRIMARY KEY,
+    ClienteID INT,
+    ProdutoID INT,
+    Quantidade INT,
+    Data DATE,
+    FOREING KEY (ClienteID) REFERENCES Clientes (ID),
+    FOREING KEY (ProdutoID) REFERENCES Produtos (ID)
+);
+
+
+// CONSULTA
+
+-Contagem de Categorias(Produtos)-
+
+SELECT Categoria, COUNT(*) AS Contagem
+FROM Produtos
+GROUP BY Categoria
+ORDER BY Contagem ASC;
+
+-Contagem de Produtos(Vendas)-
+
+SELECT ProdutoID, COUNT(*) AS Contagem
+FROM Vendas
+GROUP BY ProdutosID
+ORDER BY Contagem DESC;
+
+-Informações Complementares-
+
+SELECT c.Nome AS NomeCliente, P.Nome AS NomeProduto, V.Quantidade
+FROM Vendas V
+JOIN Clientes C ON V.ClienteID = C.ID
+JOIN Produtos P ON V.ProdutoID = P.ID;

@@ -1,0 +1,56 @@
+Concessionária - Modelagem
+
+Desafio: Crie as tabelas "Clientes", "Vendas" e "Carros" no https://dbdiagram.io/ com a seguinte estrutura:
+
+Tabela "Clientes":
+
+id (PK) - Chave primária, identificador único do produto
+nome - Nome do cliente
+email - email do cliente
+telefone - telefone do cliente
+endereco - endereco do cliente
+
+Tabela "Vendas":
+
+id (PK) - Chave primária, identificador único da venda
+carro_id (FK) - Chave estrangeira referenciando a tabela "Carros"
+cliente_id (FK) - Chave estrangeira referenciando a tabela "Clientes"
+data_venda - Data da venda
+valor - Valor da venda
+
+Tabela "Carros"":
+
+id (PK) - Chave primária, identificador único do cliente
+marca - Marca do carro
+modelo - Modelo do carro
+ano - Ano de fabricação do carro
+cor - Cor do carro
+preco - Preço do carro
+
+// TABELA CLIENTES
+Table clientes {
+  id INT [pk]
+  nome VARCHAR(100)
+  email VARCHAR(100)
+  telefone VARCHAR(20)
+  endereco VARCHAR(200)  
+}
+
+// TABELA VENDAS
+Table vendas {
+  id INT [pk]
+  carro_id INT [ref: > carros.id]
+  cliente_id INT [ref: > clientes.id]
+  data_venda DATE
+  valor DECIMAL(10, 2)  
+}
+
+// TABELA CARROS
+Table carros {
+  id INT [pk]
+  marca VARCHAR(50)
+  modelo VARCHAR(50)
+  ano INT
+  cor VARCHAR(20)
+  preco DECIMAL(10, 2)  
+}
